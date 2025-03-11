@@ -13,6 +13,7 @@ Flomatic is a Python tool that automatically generates Mermaid flowcharts from P
   - Break and continue statements
   - Return statements
   - Class definitions
+- Terminal nodes (like return statements) are properly connected to the End node
 - Target specific functions or methods for visualization
 - Choose between compact mode (control flow only) or detailed mode (all AST nodes)
 - Save diagrams to files or output to console
@@ -109,7 +110,11 @@ node2 --> node5
 node6["Return: -x"]
 node5 --> node6
 End["End"]
+node4 --> End
+node6 --> End
 ```
+
+Note how all terminal nodes (like return statements) are properly connected to the End node, making the flow of execution clear.
 
 ## Viewing the Diagrams
 
@@ -180,9 +185,15 @@ flomatic/
 │       ├── code_to_mermaid.py  # Core functionality
 │       └── examples.py         # Example code and usage
 ├── tests/                      # Test suite
+│   ├── test_flowchart_generator.py
+│   ├── test_examples.py
+│   ├── test_import.py
+│   └── conftest.py
 ├── mermaid_diagrams/           # Generated diagrams (when run)
+├── generate_self_diagrams.py   # Script to generate diagrams for the codebase itself
 ├── venv/                       # Virtual environment
 ├── pytest.ini                  # Pytest configuration
+├── LICENSE                     # MIT License
 └── README.md                   # This file
 ```
 
@@ -199,10 +210,18 @@ pip install pytest
 
 # Run the tests
 python -m pytest
-
-# Run with verbose output
-python -m pytest -v
 ```
+
+### Generating Diagrams for the Codebase
+
+Flomatic includes a script to generate flowcharts for its own codebase, which serves as both a demonstration and a form of self-documentation:
+
+```bash
+# Run the script to generate diagrams for the FlowchartGenerator class
+python generate_self_diagrams.py
+```
+
+This will create Mermaid diagram files in the `mermaid_diagrams` directory, one for each method in the FlowchartGenerator class. These diagrams provide a visual representation of how the code works, making it easier to understand and maintain.
 
 ## License
 

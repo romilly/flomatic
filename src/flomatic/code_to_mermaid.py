@@ -9,6 +9,8 @@ class FlowchartGenerator(ast.NodeVisitor):
         self.last_node = "Start"
         self.loop_start_node = None  # Reference to the current loop start for continue statements
         self.after_loop_node = None  # Reference to the node after the loop for break statements
+        self.end_node = "End"  # Reference to the End node for terminal nodes
+        self.terminal_nodes = []  # List to track all terminal nodes that should connect to End
 
     def add_node(self, label):
         self.node_count += 1
@@ -139,6 +141,8 @@ class FlowchartGenerator(ast.NodeVisitor):
         else:
             return_node = self.add_node("Return")
         self.add_connection(self.last_node, return_node)
+        # Add this return node to terminal nodes list
+        self.terminal_nodes.append(return_node)
         self.last_node = return_node
         
     def visit_While(self, node):
@@ -271,6 +275,7 @@ class FlowchartGenerator(ast.NodeVisitor):
         self.current_class = None
         self.target_function = target_function
         self.compact = compact
+        self.terminal_nodes = []  # Reset terminal nodes list
         
         tree = ast.parse(source_code)
         
@@ -302,9 +307,19 @@ class FlowchartGenerator(ast.NodeVisitor):
             # Process the entire tree
             self.visit(tree)
         
+        # If the last node isn't already a terminal node, add it to the list
+        # This handles functions that end without a return statement
+        if self.last_node not in self.terminal_nodes and self.last_node != "Start":
+            self.terminal_nodes.append(self.last_node)
+        
         # Create an end node with proper syntax
-        end_node = "End"
-        self.flowchart.append(f"{end_node}[\"End\"]")
+        self.end_node = "End"
+        self.flowchart.append(f"{self.end_node}[\"End\"]")
+        
+        # Connect all terminal nodes to the End node
+        for node in self.terminal_nodes:
+            self.add_connection(node, self.end_node)
+        
         return "\n".join(self.flowchart)
     
     def save_mermaid_diagram(self, source_code, output_dir=".", compact=True):

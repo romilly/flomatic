@@ -1,0 +1,12 @@
+flowchart TD
+Start["Start"]
+node1["Function visit_Return"]
+Start --> node1
+node2["If: node.value"]
+node1 --> node2
+node3["Then"]
+node2 --> node3
+node4["Else"]
+node2 --> node4
+End["End"]
+node2 --> End

@@ -204,27 +204,69 @@ class TestFlowchartGenerator:
     @pytest.mark.skipif(not os.path.exists("temp_test_dir"), reason="Requires temp_test_dir to exist")
     def test_save_mermaid_diagram(self):
         """Test saving a Mermaid diagram to a file."""
+        generator = FlowchartGenerator()
+        
         # Create a temporary directory for the test
-        test_dir = "temp_test_dir"
+        test_dir = "test_output"
         os.makedirs(test_dir, exist_ok=True)
         
         try:
             # Generate and save the diagram
-            generator = FlowchartGenerator()
-            saved_files = generator.save_mermaid_diagram(IF_EXAMPLE, output_dir=test_dir)
+            file_paths = generator.save_mermaid_diagram(IF_EXAMPLE, output_dir=test_dir)
             
             # Check that the file was created
-            assert len(saved_files) > 0
-            assert os.path.exists(saved_files[0])
+            assert len(file_paths) == 1
+            assert os.path.exists(file_paths[0])
             
             # Check the content of the file
-            with open(saved_files[0], 'r') as f:
+            with open(file_paths[0], 'r') as f:
                 content = f.read()
                 assert "flowchart TD" in content
                 assert "Function example" in content
         finally:
-            # Clean up: remove test files but keep the directory
-            for file in os.listdir(test_dir):
-                file_path = os.path.join(test_dir, file)
-                if os.path.isfile(file_path) and file.endswith(".mmd"):
-                    os.remove(file_path)
+            # Clean up the test directory
+            for file_path in os.listdir(test_dir):
+                os.remove(os.path.join(test_dir, file_path))
+            os.rmdir(test_dir)
+            
+    def test_terminal_nodes_connected_to_end(self):
+        """Test that all terminal nodes (like returns) are connected to the End node."""
+        generator = FlowchartGenerator()
+        flowchart = generator.generate_mermaid_flowchart(IF_EXAMPLE)
+        
+        # The test needs to verify that terminal nodes are connected to End
+        # but we need to check for the node IDs, not the labels
+        assert " --> End" in flowchart  # Verify connections to End exist
+        
+        # Extract node IDs from the flowchart
+        import re
+        nodes = {}
+        for line in flowchart.split('\n'):
+            # Match lines like 'node4["Return: x"]'
+            match = re.match(r'(node\d+)\["(Return: .+)"\]', line)
+            if match:
+                node_id, label = match.groups()
+                nodes[label] = node_id
+        
+        # Check that return nodes are connected to End
+        if "Return: x" in nodes:
+            assert f"{nodes['Return: x']} --> End" in flowchart
+        if "Return: -x" in nodes:
+            assert f"{nodes['Return: -x']} --> End" in flowchart
+        
+        # Test with a more complex example that has multiple terminal nodes
+        flowchart = generator.generate_mermaid_flowchart(BREAK_CONTINUE_EXAMPLE)
+        
+        # Extract node IDs again for the new flowchart
+        nodes = {}
+        for line in flowchart.split('\n'):
+            match = re.match(r'(node\d+)\["(Return: .+)"\]', line)
+            if match:
+                node_id, label = match.groups()
+                nodes[label] = node_id
+        
+        # Check that return nodes are connected to End
+        if "Return: i" in nodes:
+            assert f"{nodes['Return: i']} --> End" in flowchart
+        if "Return: -1" in nodes:
+            assert f"{nodes['Return: -1']} --> End" in flowchart

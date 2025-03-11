@@ -1,0 +1,19 @@
+flowchart TD
+Start["Start"]
+node1["Function save_mermaid_diagram"]
+Start --> node1
+node2["If: not function_names"]
+node1 --> node2
+node3["Then"]
+node2 --> node3
+node4["For: func_name in function_names"]
+node2 --> node4
+node5["Loop Body"]
+node4 --> node5
+node6["After Loop"]
+node5 --> node4
+node4 --> node6
+node7["Return: saved_files"]
+node6 --> node7
+End["End"]
+node7 --> End
