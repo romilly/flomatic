@@ -1,0 +1,16 @@
+flowchart TD
+Start["Start"]
+node1["Function countdown"]
+Start --> node1
+node2["While: n > 0"]
+node1 --> node2
+node3["Loop Body"]
+node2 --> node3
+node4["After Loop"]
+node5["If: n == 5"]
+node3 --> node5
+node6["Then"]
+node5 --> node6
+node5 --> node2
+node2 --> node4
+End["End"]

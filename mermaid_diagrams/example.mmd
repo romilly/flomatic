@@ -1,0 +1,15 @@
+flowchart TD
+Start["Start"]
+node1["Function example"]
+Start --> node1
+node2["If: x > 0"]
+node1 --> node2
+node3["Then"]
+node2 --> node3
+node4["Return: x"]
+node3 --> node4
+node5["Else"]
+node2 --> node5
+node6["Return: -x"]
+node5 --> node6
+End["End"]

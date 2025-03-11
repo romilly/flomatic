@@ -1,0 +1,14 @@
+flowchart TD
+Start["Start"]
+node1["Function process_list"]
+Start --> node1
+node2["For: item in items"]
+node1 --> node2
+node3["Loop Body"]
+node2 --> node3
+node4["After Loop"]
+node3 --> node2
+node2 --> node4
+node5["Return: results"]
+node4 --> node5
+End["End"]

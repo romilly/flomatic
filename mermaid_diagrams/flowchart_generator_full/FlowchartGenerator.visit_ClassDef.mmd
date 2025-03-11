@@ -1,0 +1,276 @@
+flowchart TD
+Start["Start"]
+node1["Module"]
+Start --> node1
+node2["Import"]
+node1 --> node2
+node3["alias"]
+node2 --> node3
+node4["Import"]
+node1 --> node4
+node5["alias"]
+node4 --> node5
+node6["Import"]
+node1 --> node6
+node7["alias"]
+node6 --> node7
+node8["Class FlowchartGenerator"]
+node1 --> node8
+node9["Function visit_ClassDef"]
+node8 --> node9
+node10["Assign"]
+node9 --> node10
+node11["Name"]
+node10 --> node11
+node12["Store"]
+node11 --> node12
+node13["Call"]
+node10 --> node13
+node14["Name"]
+node13 --> node14
+node15["Load"]
+node14 --> node15
+node16["Name"]
+node13 --> node16
+node17["Load"]
+node16 --> node17
+node18["Constant"]
+node13 --> node18
+node19["Constant"]
+node13 --> node19
+node20["Assign"]
+node9 --> node20
+node21["Attribute"]
+node20 --> node21
+node22["Name"]
+node21 --> node22
+node23["Load"]
+node22 --> node23
+node24["Store"]
+node21 --> node24
+node25["Attribute"]
+node20 --> node25
+node26["Name"]
+node25 --> node26
+node27["Load"]
+node26 --> node27
+node28["Load"]
+node25 --> node28
+node29["Assign"]
+node9 --> node29
+node30["Name"]
+node29 --> node30
+node31["Store"]
+node30 --> node31
+node32["Constant"]
+node29 --> node32
+node33["If: hasattr(self, 'target_function') and self.target_function"]
+node9 --> node33
+node34["Then"]
+node33 --> node34
+node35["Assign"]
+node34 --> node35
+node36["Name"]
+node35 --> node36
+node37["Store"]
+node36 --> node37
+node38["Call"]
+node35 --> node38
+node39["Attribute"]
+node38 --> node39
+node40["Attribute"]
+node39 --> node40
+node41["Name"]
+node40 --> node41
+node42["Load"]
+node41 --> node42
+node43["Load"]
+node40 --> node43
+node44["Load"]
+node39 --> node44
+node45["Constant"]
+node38 --> node45
+node46["If: len(parts) > 1 and parts[0] == self.current_class"]
+node34 --> node46
+node47["Then"]
+node46 --> node47
+node48["Assign"]
+node47 --> node48
+node49["Name"]
+node48 --> node49
+node50["Store"]
+node49 --> node50
+node51["Constant"]
+node48 --> node51
+node52["If: not hasattr(self, 'target_function') or not self.target_function or target_in_this_class"]
+node33 --> node52
+node53["Then"]
+node52 --> node53
+node54["Assign"]
+node53 --> node54
+node55["Name"]
+node54 --> node55
+node56["Store"]
+node55 --> node56
+node57["Call"]
+node54 --> node57
+node58["Attribute"]
+node57 --> node58
+node59["Name"]
+node58 --> node59
+node60["Load"]
+node59 --> node60
+node61["Load"]
+node58 --> node61
+node62["JoinedStr"]
+node57 --> node62
+node63["Constant"]
+node62 --> node63
+node64["FormattedValue"]
+node62 --> node64
+node65["Attribute"]
+node64 --> node65
+node66["Name"]
+node65 --> node66
+node67["Load"]
+node66 --> node67
+node68["Load"]
+node65 --> node68
+node69["Expr"]
+node53 --> node69
+node70["Call"]
+node69 --> node70
+node71["Attribute"]
+node70 --> node71
+node72["Name"]
+node71 --> node72
+node73["Load"]
+node72 --> node73
+node74["Load"]
+node71 --> node74
+node75["Attribute"]
+node70 --> node75
+node76["Name"]
+node75 --> node76
+node77["Load"]
+node76 --> node77
+node78["Load"]
+node75 --> node78
+node79["Name"]
+node70 --> node79
+node80["Load"]
+node79 --> node80
+node81["Assign"]
+node53 --> node81
+node82["Attribute"]
+node81 --> node82
+node83["Name"]
+node82 --> node83
+node84["Load"]
+node83 --> node84
+node85["Store"]
+node82 --> node85
+node86["Name"]
+node81 --> node86
+node87["Load"]
+node86 --> node87
+node88["For: n in node.body"]
+node53 --> node88
+node89["Loop Body"]
+node88 --> node89
+node90["After Loop"]
+node91["Expr"]
+node89 --> node91
+node92["Call"]
+node91 --> node92
+node93["Attribute"]
+node92 --> node93
+node94["Name"]
+node93 --> node94
+node95["Load"]
+node94 --> node95
+node96["Load"]
+node93 --> node96
+node97["Name"]
+node92 --> node97
+node98["Load"]
+node97 --> node98
+node89 --> node88
+node88 --> node90
+node99["If: prev_class"]
+node52 --> node99
+node100["Then"]
+node99 --> node100
+node101["Assign"]
+node100 --> node101
+node102["Attribute"]
+node101 --> node102
+node103["Name"]
+node102 --> node103
+node104["Load"]
+node103 --> node104
+node105["Store"]
+node102 --> node105
+node106["Name"]
+node101 --> node106
+node107["Load"]
+node106 --> node107
+node108["Else"]
+node99 --> node108
+node109["Assign"]
+node108 --> node109
+node110["Attribute"]
+node109 --> node110
+node111["Name"]
+node110 --> node111
+node112["Load"]
+node111 --> node112
+node113["Store"]
+node110 --> node113
+node114["Constant"]
+node109 --> node114
+node115["Assign"]
+node99 --> node115
+node116["Name"]
+node115 --> node116
+node117["Store"]
+node116 --> node117
+node118["Constant"]
+node115 --> node118
+node119["Assign"]
+node99 --> node119
+node120["Name"]
+node119 --> node120
+node121["Store"]
+node120 --> node121
+node122["Constant"]
+node119 --> node122
+node123["Assign"]
+node99 --> node123
+node124["Name"]
+node123 --> node124
+node125["Store"]
+node124 --> node125
+node126["Constant"]
+node123 --> node126
+node127["Assign"]
+node99 --> node127
+node128["Name"]
+node127 --> node128
+node129["Store"]
+node128 --> node129
+node130["Constant"]
+node127 --> node130
+node131["If: __name__ == '__main__'"]
+node99 --> node131
+node132["Then"]
+node131 --> node132
+node133["Expr"]
+node132 --> node133
+node134["Call"]
+node133 --> node134
+node135["Name"]
+node134 --> node135
+node136["Load"]
+node135 --> node136
+End["End"]
