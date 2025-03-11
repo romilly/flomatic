@@ -55,6 +55,21 @@ print(flowchart)
 output_files = generator.save_mermaid_diagram(source_code, output_dir="mermaid_diagrams")
 ```
 
+### Using the Examples Module
+
+Flomatic includes an examples module with pre-defined code snippets and functions to demonstrate usage:
+
+```python
+# Import the examples module
+from flomatic import examples
+
+# Generate and save example diagrams to the mermaid_diagrams directory
+examples.save_example_diagrams()
+
+# Or print example diagrams to the console
+examples.print_example_diagrams()
+```
+
 ### Options
 
 - **Target specific functions**: Generate a flowchart for a specific function by providing its name
@@ -105,6 +120,116 @@ You can view the generated Mermaid diagrams using:
 3. GitHub (which natively supports Mermaid in markdown)
 4. Any other tool that supports Mermaid syntax
 
+## Converting Diagrams to Images
+
+Flomatic generates Mermaid syntax files (`.mmd`), which can be converted to image formats like PNG or SVG using the Mermaid CLI tool.
+
+### Installing Mermaid CLI
+
+The Mermaid CLI requires Node.js and npm. To install:
+
+```bash
+# Install Node.js and npm if you don't have them already
+# Then install the Mermaid CLI globally
+npm install -g @mermaid-js/mermaid-cli
+```
+
+### Converting .mmd Files to Images
+
+Once you have the Mermaid CLI installed, you can convert your `.mmd` files to images:
+
+```bash
+# Convert a single file to PNG
+mmdc -i path/to/diagram.mmd -o output.png
+
+# Convert a single file to SVG
+mmdc -i path/to/diagram.mmd -o output.svg
+
+# Convert all .mmd files in a directory to PNG
+for file in mermaid_diagrams/*.mmd; do
+    mmdc -i "$file" -o "${file%.mmd}.png"
+done
+```
+
+### Customizing Output
+
+You can customize the output with various options:
+
+```bash
+# Set background color
+mmdc -i diagram.mmd -o output.png -b transparent
+
+# Set custom width and height
+mmdc -i diagram.mmd -o output.png -w 1024 -h 768
+
+# Use a custom CSS file
+mmdc -i diagram.mmd -o output.png -c custom.css
+```
+
+For more options, run `mmdc --help` or refer to the [Mermaid CLI documentation](https://github.com/mermaid-js/mermaid-cli).
+
+## Development
+
+### Project Structure
+
+```
+flomatic/
+├── src/
+│   └── flomatic/
+│       ├── __init__.py
+│       ├── code_to_mermaid.py  # Core functionality
+│       └── examples.py         # Example code and usage
+├── tests/                      # Test suite
+├── mermaid_diagrams/           # Generated diagrams (when run)
+├── venv/                       # Virtual environment
+├── pytest.ini                  # Pytest configuration
+└── README.md                   # This file
+```
+
+### Running Tests
+
+Flomatic includes a comprehensive test suite using pytest. To run the tests:
+
+```bash
+# Activate the virtual environment
+source venv/bin/activate
+
+# Install pytest if not already installed
+pip install pytest
+
+# Run the tests
+python -m pytest
+
+# Run with verbose output
+python -m pytest -v
+```
+
 ## License
 
-[Add license information here]
+Flomatic is released under the MIT License.
+
+```
+MIT License
+
+Copyright (c) 2025 Romilly Cocking
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+See the [LICENSE](LICENSE) file for the full license text.
